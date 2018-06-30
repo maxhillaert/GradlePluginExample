@@ -1,0 +1,23 @@
+group 'com.test'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'scalajs-plugin'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.gtache:scalajs-plugin:sjs0.6_2.11_0.3.0'
+    }
+}
+
+dependencies {
+    compile project(':library')
+    compile "com.test:library:sjs0.6_2.11_0.3.0"
+}
+
+assemble {
+    dependsOn "NoOptJS"
+}
+

@@ -1,0 +1,49 @@
+group 'com.test'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'scala'
+apply plugin: 'idea'
+
+
+repositories {
+    mavenCentral()
+
+}
+
+dependencies {
+    compile 'org.scala-lang:scala-library:2.11.8'
+
+}
+
+subprojects {
+
+    apply plugin: 'scala'
+    apply plugin: 'idea'
+    apply plugin: 'maven-publish'
+
+    repositories {
+        maven {
+            url "${rootProject.buildDir}/repo"
+
+        }
+        mavenCentral()
+
+    }
+
+    dependencies {
+        compile 'org.scala-lang:scala-library:2.11.8'
+    }
+
+    sourceSets {
+        main {
+            scala {
+                srcDirs = ['src/scala']
+            }
+        }
+        test {
+            scala {
+                srcDirs = ['test/scala']
+            }
+        }
+    }
+}

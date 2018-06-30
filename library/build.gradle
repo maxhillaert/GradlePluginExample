@@ -1,0 +1,45 @@
+group 'com.test'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'scalajs-plugin'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.gtache:scalajs-plugin:sjs0.6_2.11_0.3.0'
+    }
+}
+
+task apiJar(type: Jar) {
+    baseName "library"
+    from sourceSets.main.output
+    include '**/*.sjsir'
+}
+
+publishing {
+
+    repositories{
+        maven {
+            url "${rootProject.buildDir}/repo"
+        }
+    }
+    publications {
+        api(MavenPublication) {
+            groupId 'com.test'
+            artifactId 'library'
+            version 'sjs0.6_2.11_0.3.0'
+
+            artifact apiJar
+        }
+    }
+}
+
+
+
+assemble {
+    dependsOn "publish"
+}
+
+
